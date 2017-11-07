@@ -45,6 +45,7 @@ class Post(models.Model):
                               self.publish.strftime('%d'),
                               self.slug])
 
+    
 
     #ModelManagers
     objects = models.Manager()
