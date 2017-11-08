@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import ListView
 
 # Create your views here.
-def post_list(request):
+
+#PostList function based view
+''' def post_list(request):
     object_list = Post.published.all()
     paginator = Paginator(object_list, 3) # 3 posts in each page
     page = request.GET.get('page')
@@ -16,6 +19,13 @@ def post_list(request):
         # If page is out of range deliver last page of results
         posts = paginator.page(paginator.num_pages)
     return render(request, 'blog/post/list.html', {'page': page, 'posts': posts})
+ '''
+#PostList class based view
+class PostListView(ListView):
+    queryset = Post.published.all()
+    context_object_name = 'posts'
+    paginate_by = 3
+    template_name = 'blog/post/list.html'
 
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
