@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
+
 # Create your models here.
 
 class PublishedManager(models.Manager):
@@ -57,8 +58,8 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments')
     name = models.CharField(max_length=80)
-    email = models.EmailField
-    body = models.TextField
+    email = models.EmailField()
+    body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
