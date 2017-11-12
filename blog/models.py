@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from taggit.managers import TaggableManager
 
 
 # Create your models here.
@@ -9,6 +10,7 @@ from django.core.urlresolvers import reverse
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager,self).get_queryset().filter(status='published')
+
 class Post(models.Model):
 
 
@@ -33,6 +35,8 @@ class Post(models.Model):
     
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
 
+    tag = TaggableManager()
+
     class Meta:
         ordering = ('-publish',)
 
@@ -45,6 +49,8 @@ class Post(models.Model):
                               self.publish.strftime('%m'),
                               self.publish.strftime('%d'),
                               self.slug])
+
+    
 
     
 
